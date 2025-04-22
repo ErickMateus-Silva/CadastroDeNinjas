@@ -19,10 +19,10 @@ public class MissoesModel {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome_missao")
+    @Column(name = "nome")
     private String nome;
 
-    @Column(name = "nivel_dificuldade")
+    @Column(name = "dificuldade")
     private  String dificuldade;
 
     //@ oneToMany - as missoes vao ter varios ninjas
