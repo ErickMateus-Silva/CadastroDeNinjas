@@ -1,37 +1,46 @@
 package dev.Java10x.CadastroDeNinjas.Missoes;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/missoes")
 public class MissoesController {
 
+    private MissoesService missoesService;
+
+    public MissoesController(MissoesService missoesService) {
+        this.missoesService = missoesService;
+    }
 
     // Adicionar Missao (CREATE)
     @PostMapping("/criar")
-    public  String criarMIssao() {
-        return  "Missao criarda";
-    }
-    // Procurar Missao por ID( CREATE)
-    @GetMapping("/ProcurarID")
-    public String procurarMissao() {
-        return "Missao procurada";
+    public  MissoesDTO criarMIssao(@RequestBody MissoesDTO missao) {
+        return  missoesService.criarMissao(missao);
     }
 
     // Mostrar todos as Missoes (READ)
     @GetMapping("/listar")
-    public  String mostrarTodosAsMissoes() {
-        return  "Mostrar Missao";
+    public List<MissoesDTO> mostrarTodosAsMissoes() {
+        return  missoesService.listarMissoes();
+    }
+
+    // Mostar Missao por ID
+    @GetMapping("/listar/{id}")
+    public MissoesDTO listarPorId(@PathVariable Long id) {
+        return missoesService.listarMissaoPorId(id);
     }
 
     // Alterar dados das Missoes (UPDATE)
-    @PutMapping("/alterarID")
-    public  String AlterarMissaoPorId() {
-        return  "Alterar Missao por id";
+    @PutMapping("/alterar/{id}")
+    public  MissoesDTO AlterarMissaoPorId(@PathVariable Long id, @RequestBody MissoesDTO missaoAtualizada) {
+        return  missoesService.altualizarMissao(id, missaoAtualizada);
     }
 
     // Deletar Missao (DELETE)
-    @DeleteMapping("/deletarID")
-    public String deletarMissaoPorId() {
-        return  "Missao deletado por id";
+    @DeleteMapping("/deletar/{id}")
+    public void deletarMissaoPorId(Long id) {
+        missoesService.deletarMissao(id);
     }
+
 }
